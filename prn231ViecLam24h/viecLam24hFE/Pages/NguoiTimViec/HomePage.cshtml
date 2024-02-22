@@ -1,0 +1,194 @@
+﻿@page
+@model TimViecModel
+@{
+    ViewData["Title"] = "Trang chủ";
+    Layout = "_LayoutUngTuyenHomePage";
+}
+
+
+<!-- start banner Area -->
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row fullscreen d-flex align-items-center justify-content-center">
+            <div class="banner-content col-lg-12">
+                <h1 class="text-white">
+                    <span>Website việc làm</span> PHỔ BIẾN NHẤT VIỆT NAM
+                </h1>
+                <form asp-page-handler="search" method="post" class="serach-form-area">
+                    <div class="row justify-content-center form-wrap">
+                        <div class="col-lg-4 form-cols">
+                            <input type="text" class="form-control" asp-for="jobName" placeholder="Bạn đang tìm gì ?">
+                        </div>
+                        <div class="col-lg-3 form-cols">
+                            <input type="text" class="form-control" asp-for="jobLocation" placeholder="Địa điểm">
+                            @*<div class="default-select" id="default-selects">
+                            <select>
+                            <option value="1">Select area</option>
+                            <option value="2">Dhaka</option>
+                            <option value="3">Rajshahi</option>
+                            <option value="4">Barishal</option>
+                            <option value="5">Noakhali</option>
+                            </select>
+                            </div>*@
+                        </div>
+                        <div class="col-lg-3 form-cols">
+                            <div class="default-select" id="default-selects2">
+                                <select asp-for="jobType">
+                                    <option value="">Vị trí</option>
+                                    @foreach (var jobType in Model.listJobtype)
+                                    {
+                                        <option value="@jobType.Type">@jobType.Type</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 form-cols">
+                            <button type="submit" class="btn btn-info">
+                                <span class="lnr lnr-magnifier"></span> Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <p class="text-white"> <span>Search by tags:</span> Tecnology, Business, Consulting, IT Company, Design, Development</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+<!-- Start post Area -->
+<section class="post-area section-gap">
+    <div class="container">
+        <div class="row justify-content-center d-flex">
+            <div class="col-lg-8 post-list">
+                <ul class="cat-list">
+                    <li style="background-color: rgb(110, 196, 110);"><a asp-page-handler="Recent" asp-route-option="1">Mới nhất</a></li>
+                    <li style="background-color: rgb(186, 213, 98);"><a asp-page-handler="Recent" asp-route-option="2">Full-Time</a></li>
+                    <li style="background-color: rgb(110, 196, 110);"><a asp-page-handler="Recent" asp-route-option="3">Intern</a></li>
+                    <li style="background-color: rgb(186, 213, 98);"><a asp-page-handler="Recent" asp-route-option="4">Part-Time</a></li>
+                </ul>
+
+                @foreach (var jobpost in Model.jobPost_Show)
+                {
+                    if (jobpost.Status == true)
+                    {
+                        string[] listJobType = jobpost.JobType.Type.Split(" - ");
+
+                        <div class="single-post d-flex flex-row">
+                            <div class="thumb">
+                                <img src="img/post.png" alt="">
+                                <ul class="tags" style="width:140px; height:auto">
+                                    @foreach (string type in listJobType)
+                                    {
+                                        <li>
+                                            <a asp-page-handler="ByJobType" asp-route-type="@type">@type</a>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+                            <div class="details">
+                                <div class="title d-flex flex-row justify-content-between">
+                                    <div class="titles">
+
+                                        <a asp-page="./ChiTietCongViec" asp-route-id="@jobpost.Id"><h4>@jobpost.JobName</h4></a>
+                                        <h6>Logo image</h6>
+                                    </div>
+                                    <!--Here to left-->
+                                    <ul class="btns">
+                                        <li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+                                        <li style="background-color: rgb(71, 197, 235);"><a asp-page="./ChiTietCongViec" asp-route-id="@jobpost.Id">Ứng tuyển</a></li>
+                                    </ul>
+                                </div>
+                                <div style="width:530px">
+                                    <p>
+                                        @{
+                                            var showDescription = @jobpost.JobDescription.Substring(0, jobpost.JobDescription.Length > 100 ? 100 : jobpost.JobDescription.Length) + new string('.', 3);
+                                        }
+                                        @showDescription
+                                    </p>
+                                </div>
+
+                                <h5>Hình thức: @jobpost.WorkingForm</h5>
+                                <p class="address"><span class="lnr lnr-map"></span> @jobpost.JobLocation</p>
+                                <p class="address"><span class="lnr lnr-database"></span> Lương khoảng : @string.Format("{0:N0} VNĐ", jobpost.Salary)</p>
+                            </div>
+                        </div>
+                    }
+                }
+                <a class="text-uppercase loadmore-btn mx-auto d-block" asp-page-handler="LoadMore" asp-route-size="@Model.jobPost_Show.Count">Load More job Posts</a>
+
+            </div>
+            <div class="col-lg-4 sidebar">
+                <div class="single-slidebar">
+                    <h4>Việc làm theo Vị trí</h4>
+                    <ul class="cat-list">
+                        @foreach (var location in Model.listLocation)
+                        {
+                            <li><a class="justify-content-between d-flex" asp-page-handler="ByJobLocation" asp-route-joblocation="@location.Item1"><p>@location.Item1</p><span>@location.Item2</span></a></li>
+                        }
+                    </ul>
+                </div>
+
+                @*<div class="single-slidebar">
+                <h4>Top rated job posts</h4>
+                <div class="active-relatedjob-carusel">
+                <div class="single-rated">
+                <img class="img-fluid" src="img/r1.jpg" alt="">
+                <a href="single.html"><h4>Creative Art Designer</h4></a>
+                <h6>Premium Labels Limited</h6>
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
+                </p>
+                <h5>Job Nature: Full time</h5>
+                <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
+                <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
+                <a href="#" class="btns text-uppercase">Apply job</a>
+                </div>
+                <div class="single-rated">
+                <img class="img-fluid" src="img/r1.jpg" alt="">
+                <a href="single.html"><h4>Creative Art Designer</h4></a>
+                <h6>Premium Labels Limited</h6>
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
+                </p>
+                <h5>Job Nature: Full time</h5>
+                <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
+                <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
+                <a href="#" class="btns text-uppercase">Apply job</a>
+                </div>
+                <div class="single-rated">
+                <img class="img-fluid" src="img/r1.jpg" alt="">
+                <a href="single.html"><h4>Creative Art Designer</h4></a>
+                <h6>Premium Labels Limited</h6>
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
+                </p>
+                <h5>Job Nature: Full time</h5>
+                <p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
+                <p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
+                <a href="#" class="btns text-uppercase">Apply job</a>
+                </div>
+                </div>
+                </div>*@
+
+               @*  <div class="single-slidebar">
+                    <h4>Nghề nghiệp</h4>
+                    <ul class="cat-list">
+                        <li><a class="justify-content-between d-flex" href="category.html"><p>Technology</p><span>37</span></a></li>
+                        <li><a class="justify-content-between d-flex" href="category.html"><p>Media & News</p><span>57</span></a></li>
+                        <li><a class="justify-content-between d-flex" href="category.html"><p>Goverment</p><span>33</span></a></li>
+                        <li><a class="justify-content-between d-flex" href="category.html"><p>Medical</p><span>36</span></a></li>
+                        <li><a class="justify-content-between d-flex" href="category.html"><p>Restaurants</p><span>47</span></a></li>
+                        <li><a class="justify-content-between d-flex" href="category.html"><p>Developer</p><span>27</span></a></li>
+                        <li><a class="justify-content-between d-flex" href="category.html"><p>Accounting</p><span>17</span></a></li>
+                    </ul>
+                </div> *@
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End post Area -->

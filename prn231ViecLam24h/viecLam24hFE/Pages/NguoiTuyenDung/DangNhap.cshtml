@@ -1,0 +1,52 @@
+﻿@page
+@model viecLam24hFE.Pages.NguoiTuyenDung.DangNhapModel
+@{
+    Layout = "_LayoutLoginTuyenDung";
+}
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+
+                    <form method="post">
+                        <div class="text-center mb-5">
+                            <p class="font-semibold text-lg">Nhà tuyển dụng đăng nhập</p>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="mb-4">
+                            <input class="form-control font-semibold text-sm" placeholder="Địa chỉ email" asp-for="@Model.TuyenDungLogin.Email"/>
+                            <span asp-validation-for="@Model.TuyenDungLogin.Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="mb-4">
+                            <input class="form-control font-semibold text-sm" placeholder="Mật khẩu" asp-for="@Model.TuyenDungLogin.Password"/>
+                            <span asp-validation-for="@Model.TuyenDungLogin.Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary col-auto mb-4 font-semibold text-sm" style="width: 100%">Đăng nhập</button>
+
+                        <!-- 2 column grid layout -->
+          @*              <div class="row mb-4">
+                            <div class="col-md-12 justify-content-center">
+                                <!-- Simple link -->
+                                <a href="" class="font-semibold text-sm">Quên mật khẩu ?</a>
+                            </div>
+                        </div>
+*@
+                        <!-- Register buttons -->
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Bạn là nhà tuyển dụng mới?, <a href="/NguoiTuyenDung/DangKy" class="text-sm font-semibold">Đăng ký tài khoản</a></p>
+                        </div>
+                    </form>
+                    <span class="text-danger text-sm font-semibold">@ViewBag.responseMessage</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

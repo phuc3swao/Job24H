@@ -1,0 +1,108 @@
+﻿@using System.Text.Json;
+@using viecLam24hBE.Commons;
+@using viecLam24hBE.Models;
+@inject IHttpContextAccessor HttpContextAccessor;
+@{
+    User user = JsonSerializer.Deserialize<User>(HttpContextAccessor.HttpContext.Session.GetString(Enums.SESSION_KEY_USER_UNG_TUYEN));
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - viecLam24hFE</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/LayoutManagerTuyenDung.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css" />
+
+</head>
+
+<body style="background-color: hsl(0, 0%, 96%)">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand font-semibold text-lg" asp-area="" asp-page="/Index">Việc Làm 24h</a>
+                <div class="dropdown" style="margin-right: 100px">
+                    @if (user != null)
+                    {
+                        <a class="nav-link dropdown-toggle font-semibold text-sm" href="#" id="dropdownMenuButton1"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Xin chào, @user.UserName
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                   
+                                <a class="dropdown-item font-semibold text-sm" asp-page="/NguoiTimViec/DangNhap" asp-page-handler="Logout">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <a class="font-semibold text-sm" asp-page="/NguoiTimViec/DangNhap">Đăng nhập</a>
+                    }
+                </div>
+
+
+            </div>
+        </nav>
+    </header>
+    <div class="container pb-3">
+        <div class="row">
+            <div class="card col-3 flex-shrink-0" style="border-radius: 1rem;">
+                <div class="card-body">                    
+                    <ul class="list-unstyled ps-0">
+                        <li class="mb-1">
+                            <button class="fs-6 fw-semibold btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                                data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                                Quản lý tài khoản
+                            </button>
+                            <div class="collapse show" id="home-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li>
+                                        <a href="/NguoiTimViec/QuanLyTaiKhoan" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Tài khoản của bạn</a>
+                                    </li>
+                  
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                                data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                                Quản lý hồ sơ
+                            </button>
+                            <div class="collapse" id="dashboard-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li>
+                                        <a href="/NguoiTimViec/TaoHoSo"
+                                           class="link-body-emphasis d-inline-flex text-decoration-none rounded">Tạo hồ sơ</a>
+                                    </li>
+                                    <li><a href="/NguoiTimViec/DanhSachHoSo"
+                                            class="link-body-emphasis d-inline-flex text-decoration-none rounded">Hồ sơ của bạn</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex-shrink-0 col-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/LayoutManagerTuyenDung.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

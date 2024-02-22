@@ -1,0 +1,167 @@
+﻿@page
+@using viecLam24hBE.Models;
+@using viecLam24hBE.ViewModels;
+@model viecLam24hFE.Pages.NguoiTuyenDung.TaoTinTuyenDungModel
+@{
+    Layout = "_LayoutManagerTuyenDung";
+    ViewBag.ActiveNav = "TaoTinTuyenDung";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="card" style="border-radius: 1rem;">
+            <div class="card-body p-4">
+                <form method="post">
+                    <h2 class="font-semibold text-lg mb-4">Tạo tin tuyển dụng</h2>
+                    <div class="bg-grey-light mb-4"></div>
+                    <div class="mb-4">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.JobName">Chức danh <span class="text-red-500"> *</span></label>
+                        <input class="form-control font-semibold text-sm" placeholder="Vị trí hiển thị đăng tuyển" asp-for="@Model.JobPostViewModel.JobName" />
+                        <span asp-validation-for="@Model.JobPostViewModel.JobName" class="text-danger font-semibold text-sm"></span>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.JobTypeId">Nghề nghiệp <span class="text-red-500"> *</span></label>
+                        <select class="form-select font-semibold text-sm" asp-for="@Model.JobPostViewModel.JobTypeId">
+                            <option value="0" selected hidden>Chọn</option>
+                            @foreach (var item in ViewBag.jobTypes as List<JobType>)
+                            {
+                                <option value="@item.Id">@item.Type</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.JobPostViewModel.JobTypeId" class="text-danger font-semibold text-sm"></span>
+                        @Html.ValidationMessage("JobTypeId", new { @class = "text-danger font-semibold text-sm" })
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-4">
+                            <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.WorkingForm">Hình thức làm việc <span class="text-red-500"> *</span></label>
+                            <select class="form-select" asp-for="@Model.JobPostViewModel.WorkingForm">
+                                <option value="" selected hidden>Chọn</option>
+                                @foreach (var item in ViewBag.WorkingFormEnums as List<Tuple<string, string>>)
+                                {
+                                    <option value="@item.Item1">@item.Item2</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.JobPostViewModel.WorkingForm" class="text-danger font-semibold text-sm"></span>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.Degree">Bằng cấp <span class="text-red-500"> *</span></label>
+                            <select class="form-select" asp-for="@Model.JobPostViewModel.Degree">
+                                <option value="" selected hidden>Chọn</option>
+                                @foreach (var item in ViewBag.DegreeEnums as List<Tuple<string, string>>)
+                                {
+                                    <option value="@item.Item1">@item.Item2</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.JobPostViewModel.Degree" class="text-danger font-semibold text-sm"></span>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.Experence">Kinh nghiệm <span class="text-red-500"> *</span></label>
+                            <select class="form-select" asp-for="@Model.JobPostViewModel.Experence">
+                                <option value="" selected hidden>Chọn</option>
+                                @foreach (var item in ViewBag.ExperenceEnums as List<Tuple<string, string>>)
+                                {
+                                    <option value="@item.Item1">@item.Item2</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.JobPostViewModel.Experence" class="text-danger font-semibold text-sm"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="mb-3 col-lg-6">
+                                    <label asp-for="@Model.JobPostViewModel.MinAge" class="form-label font-semibold text-sm">Tuổi tối thiểu <span class="text-red-500"> *</span></label>
+                                    <input asp-for="@Model.JobPostViewModel.MinAge" class="form-control font-semibold text-sm" />
+                                    <span asp-validation-for="@Model.JobPostViewModel.MinAge" class="text-danger font-semibold text-sm"></span>
+                   
+                        
+                                </div>
+                                <div class="mb-3 col-lg-6">
+                                    <label asp-for="@Model.JobPostViewModel.MaxAge" class="form-label font-semibold text-sm">Tuổi tối đa <span class="text-red-500"> *</span></label>
+                                    <input asp-for="@Model.JobPostViewModel.MaxAge" class="form-control font-semibold text-sm" />
+                                    <span asp-validation-for="@Model.JobPostViewModel.MaxAge" class="text-danger font-semibold text-sm"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.Sex">Yêu cầu giới tính <span class="text-red-500"> *</span></label>
+                            <select class="form-select" asp-for="@Model.JobPostViewModel.Sex">
+                                <option value="" selected hidden>Chọn</option>
+                                @foreach (var item in ViewBag.SexEnums as List<Tuple<string,string>>)
+                                {
+                                    <option value="@item.Item1">@item.Item2</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.JobPostViewModel.Sex" class="text-danger font-semibold text-sm"></span>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.Quantity">Số lượng tuyển <span class="text-red-500"> *</span></label>
+                            <input class="form-control font-semibold text-sm" asp-for="@Model.JobPostViewModel.Quantity" placeholder="Chỉ nhập số. VD:10" />
+@*                            <span asp-validation-for="@Model.JobPostViewModel.Quantity" class="text-danger font-semibold text-sm"></span>*@
+                            @Html.ValidationMessage("Quantity", new {@class = "text-danger font-semibold text-sm"})
+                        </div>
+                    </div>
+                    <div class="row mt-3 mb-4">
+                        <h2 class="font-semibold text-lg mb-3">Mức lương & Mô tả</h2>
+                            <div class="mb-3 col-lg-4">
+                                <label asp-for="@Model.JobPostViewModel.Salary" class="form-label font-semibold text-sm">Mức lương<span class="text-red-500"> *</span></label>
+                                <input asp-for="@Model.JobPostViewModel.Salary" class="form-control font-semibold text-sm" />
+                                @*<span asp-validation-for="@Model.JobPostViewModel.Salary" class="text-danger font-semibold text-sm"></span>*@
+                            @Html.ValidationMessage("Salary", new {@class = "text-danger font-semibold text-sm"})
+
+                            </div>
+                            <div class="mb-3 col-lg-8">
+                                <label asp-for="@Model.JobPostViewModel.JobLocation" class="form-label font-semibold text-sm">Địa điểm làm việc <span class="text-red-500"> *</span></label>
+                                <input asp-for="@Model.JobPostViewModel.JobLocation" class="form-control font-semibold text-sm" />
+                                <span asp-validation-for="@Model.JobPostViewModel.JobLocation" class="text-danger font-semibold text-sm"></span>
+                            </div>
+                            <div class="mb-3 col-lg-12">
+                                <label asp-for="@Model.JobPostViewModel.JobDescription" class="form-label font-semibold text-sm">Mô tả công việc <span class="text-red-500"> *</span></label>
+                            <textarea asp-for="@Model.JobPostViewModel.JobDescription" class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                                <span asp-validation-for="@Model.JobPostViewModel.JobDescription" class="text-danger font-semibold text-sm"></span>
+                            </div>
+                    </div>
+                    <div class="row mt-3 mb-4">
+                        <h2 class="font-semibold text-lg mb-3">Thông tin người liên hệ</h2>
+                        <div class="mb-3 col-lg-4">
+                            <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.UserName">Họ và tên<span class="text-red-500"> *</span></label>
+                            <input class="form-control font-semibold text-sm" asp-for="@Model.JobPostViewModel.UserName" value="@ViewBag.userSession.UserName" />
+                            <span asp-validation-for="@Model.JobPostViewModel.UserName" class="text-danger font-semibold text-sm"></span>
+
+                        </div>
+                        <div class="mb-3 col-lg-4">
+                            <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.Email">Email <span class="text-red-500"> *</span></label>
+                            <input class="form-control font-semibold text-sm" asp-for="@Model.JobPostViewModel.Email" value="@ViewBag.userSession.Email" />
+                            <span asp-validation-for="@Model.JobPostViewModel.Email" class="text-danger font-semibold text-sm"></span>
+                        </div>
+                        <div class="mb-3 col-lg-4">
+                            <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.Phone">Điện thoại <span class="text-red-500"> *</span></label>
+                            <input class="form-control font-semibold text-sm" asp-for="@Model.JobPostViewModel.Phone" value="@ViewBag.userSession.Phone" />
+                            <span class="text-danger font-semibold text-sm" asp-validation-for="@Model.JobPostViewModel.Phone"></span>
+                        </div>
+                        <div class="mb-3 col-lg-8">
+                            <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.Address">Địa chỉ liên hệ<span class="text-red-500"> *</span></label>
+                            <input class="form-control font-semibold text-sm" asp-for="@Model.JobPostViewModel.Address"/>
+                            <span asp-validation-for="@Model.JobPostViewModel.Address" class="text-danger font-semibold text-sm"></span>
+
+                        </div>
+                        <div class="mb-3 col-lg-4">
+                            <label class="form-label font-semibold text-sm" asp-for="@Model.JobPostViewModel.Deadline">Hạn nộp hồ sơ<span class="text-red-500"> *</span></label>
+                            <input class="form-control font-semibold text-sm" asp-for="@Model.JobPostViewModel.Deadline" />
+@*                            <span asp-validation-for="@Model.JobPostViewModel.Deadline" class="text-danger font-semibold text-sm"></span>*@
+                            @Html.ValidationMessage("Deadline", new {@class = "text-danger font-semibold text-sm"})
+
+                        </div>
+                    </div>
+
+                    <a href="/NguoiTuyenDung/DanhSachTinDang" class="btn btn-danger">Hủy bỏ</a>
+                    <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

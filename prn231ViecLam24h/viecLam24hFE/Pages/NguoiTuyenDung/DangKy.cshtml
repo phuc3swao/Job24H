@@ -1,0 +1,60 @@
+﻿@page
+@model viecLam24hFE.Pages.NguoiTuyenDung.DangKyModel
+@{
+    Layout = "_LayoutLoginTuyenDung";
+}
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+
+                    <form method="post">
+                        <div class="text-center mb-5">
+                            <p class="font-semibold text-lg">Đăng ký tài khoản nhà tuyển dụng</p>
+                   
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="mb-4">
+                            <input class="form-control font-semibold text-sm" placeholder="Địa chỉ email" asp-for="@Model.DangkiTuyenDung.Email" />
+                            <span asp-validation-for="@Model.DangkiTuyenDung.Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="mb-4">
+                            <input class="form-control font-semibold text-sm" placeholder="Mật khẩu" asp-for="@Model.DangkiTuyenDung.Password" />
+                            <span asp-validation-for="@Model.DangkiTuyenDung.Password" class="text-danger"></span>
+                        </div>
+
+                        <p class="font-semibold text-lg">Thông tin liên hệ</p>
+
+                        <div class="mb-4">
+                            <input class="form-control font-semibold text-sm" placeholder="Họ và tên" asp-for="@Model.DangkiTuyenDung.UserName" />
+                            <span asp-validation-for="@Model.DangkiTuyenDung.UserName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <input class="form-control font-semibold text-sm" placeholder="Số điện thoại" asp-for="@Model.DangkiTuyenDung.Phone" />
+                            <span asp-validation-for="@Model.DangkiTuyenDung.Phone" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <input class="form-control font-semibold text-sm" placeholder="Tên công ty" asp-for="@Model.DangkiTuyenDung.CompanyName" />
+                            <span asp-validation-for="@Model.DangkiTuyenDung.CompanyName" class="text-danger"></span>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary col-auto mb-4 font-semibold text-sm" style="width: 100%">Đăng ký</button>
+
+
+                        <!-- Register buttons -->
+                        <div class="text-center">
+                            <p class="text-sm font-semibold">Bạn đã có tài khoản nhà tuyển dụng?, <a class="font-semibold text-lg" href="/NguoiTuyenDung/DangNhap">Đăng nhập</a></p>
+                        </div>
+                    </form>
+                    <span class="text-danger text-sm font-semibold">@ViewBag.responseMessage</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

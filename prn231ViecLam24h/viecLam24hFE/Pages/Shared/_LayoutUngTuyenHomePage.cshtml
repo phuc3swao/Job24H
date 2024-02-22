@@ -1,0 +1,93 @@
+﻿@using Newtonsoft.Json
+@using Microsoft.AspNetCore.Http;
+@using viecLam24hBE.Models;
+@using viecLam24hBE.Commons;
+@{
+    var httpContext = Context.Request.HttpContext;
+
+    string userJson = httpContext.Session.GetString(Enums.SESSION_KEY_USER_UNG_TUYEN);
+    User currentUser = null;
+    if (userJson != null)
+    {
+        currentUser = JsonConvert.DeserializeObject<User>(userJson);
+    }
+
+}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png">
+    <!-- Author Meta -->
+    <meta name="author" content="codepixer">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Job Listing</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+    CSS
+    ============================================= -->
+
+    <link href="~/phuctemplate/css/linearicons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/phuctemplate/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/phuctemplate/css/bootstrap.css">
+    <link rel="stylesheet" href="~/phuctemplate/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/phuctemplate/css/nice-select.css">
+    <link rel="stylesheet" href="~/phuctemplate/css/animate.min.css">
+    <link rel="stylesheet" href="~/phuctemplate/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/phuctemplate/css/main.css">
+</head>
+<body>
+    <header id="header" id="home" style="background-color: black">
+        <div class="container">
+            <div class="row align-items-center justify-content-between d-flex">
+                <div id="logo">
+                    <a class="navbar-brand font-semibold text-lg" style="color: white" asp-page="/Index">Việc Làm 24h</a>
+                </div>
+                <nav id="nav-menu-container">
+                    <ul class="nav-menu">
+
+                        @if (currentUser == null)
+                        {
+                            <li><a class="ticker-btn" style="background-color: rgb(220, 34, 149);" asp-page="/NguoiTuyenDung/HomePage">Dành cho Nhà Tuyển Dụng</a></li>
+
+                            <li><a class="ticker-btn" style="background-color: rgb(21, 218, 61);" href="/NguoiTimViec/DangNhap">Đăng nhập</a></li>
+                        }else{
+                            <li><a href="/NguoiTimViec/QuanLyTaiKhoan">Tài khoản</a></li>
+                            <li><a class="ticker-btn" style="background-color: rgb(220, 34, 149);" asp-page="/NguoiTuyenDung/HomePage">Dành cho Nhà Tuyển Dụng</a></li>
+                            <li><a class="ticker-btn" style="background-color: white; color:black" asp-page="/NguoiTimViec/DangNhap" asp-page-handler="Logout">Đăng Xuất</a></li>  
+                        }
+
+                    </ul>
+                </nav><!-- #nav-menu-container -->
+            </div>
+        </div>
+    </header><!-- #header -->
+    <div class="flex-shrink-0 col-12">
+        @RenderBody()
+    </div>
+    <script src="~/phuctemplate/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="~/phuctemplate/js/easing.min.js"></script>
+    <script src="~/phuctemplate/js/hoverIntent.js"></script>
+    <script src="~/phuctemplate/js/superfish.min.js"></script>
+    <script src="~/phuctemplate/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/phuctemplate/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/phuctemplate/js/owl.carousel.min.js"></script>
+    <script src="~/phuctemplate/js/jquery.sticky.js"></script>
+    <script src="~/phuctemplate/js/jquery.nice-select.min.js"></script>
+    <script src="~/phuctemplate/js/parallax.min.js"></script>
+    <script src="~/phuctemplate/js/mail-script.js"></script>
+    <script src="~/phuctemplate/js/main.js"></script>
+</body>
+</html>

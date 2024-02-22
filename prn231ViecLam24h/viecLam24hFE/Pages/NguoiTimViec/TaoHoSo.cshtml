@@ -1,0 +1,101 @@
+﻿@page
+@model viecLam24hFE.Pages.NguoiTimViec.TaoHoSoModel
+@{
+    Layout = "_LayoutManagerUngTuyen";
+}
+
+<div class="container">
+    <div class="card" style="border-radius: 1rem;">
+        
+
+
+        @*      Card body thong tin chung*@
+        <form method="post">
+            <div class="card-body p-4">
+
+                <h2 class="font-semibold text-lg mb-4">Thông tin chung</h2>
+
+                <div class="row">
+                    <div class="mb-4">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.JobName">Vị trí mong muốn</label>
+                        <input class="form-control font-semibold text-sm" placeholder="Vị trí hiển thị đăng tuyển" asp-for="@Model.applicantProfile.JobName" />
+                    </div>
+                    @*<div class="mb-4">
+                    <label class="form-label font-semibold text-sm" asp-for="@Model.UngTuyenDetail.Avatar">Nghề nghiệp</label>
+                    <input class="form-control font-semibold text-sm" placeholder="Vị trí hiển thị đăng tuyển" asp-for="@Model.UngTuyenDetail.Avatar" />
+                    </div>*@
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.Salary">Mức lương mong muốn</label>
+                        <input class="form-control font-semibold text-sm" placeholder="$"
+                               asp-for="@Model.applicantProfile.Salary" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.Degree">Trình độ học vấn</label>
+                        <input class="form-control font-semibold text-sm" placeholder="" asp-for="@Model.applicantProfile.Degree" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.Experence">Số năm kinh nghiệm</label>
+                        <input class="form-control font-semibold text-sm" placeholder=""
+                               asp-for="@Model.applicantProfile.Experence" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.WorkLocation">Địa điểm làm việc</label>
+                        <input class="form-control font-semibold text-sm" placeholder="" asp-for="@Model.applicantProfile.WorkLocation" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.WorkingForm">Hình thức làm việc</label>
+                        <input class="form-control font-semibold text-sm" placeholder=""
+                               asp-for="@Model.applicantProfile.WorkingForm" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.CareerGoals">Mục tiêu nghề nghiệp</label>
+                        <input class="form-control font-semibold text-sm" placeholder="" asp-for="@Model.applicantProfile.CareerGoals" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.Skills">Kỹ năng mềm & cứng (Không bắt buộc)</label>
+                    <input class="form-control font-semibold text-sm" placeholder="Kỹ năng" asp-for="@Model.applicantProfile.Skills" />
+                </div>
+
+            </div>
+            @*      Ket thuc Card body thong tin chung*@
+
+            <div class="card-body p-4">
+                @*<form method="post">*@
+                <h2 class="font-semibold text-lg mb-4">Thông tin người tham khảo</h2>
+
+                <div class="row">
+                    <div class="mb-4">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.NameReference">Họ và tên</label>
+                        <input class="form-control font-semibold text-sm" placeholder="" asp-for="@Model.applicantProfile.NameReference" />
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.PhoneReference">Số điện thoại</label>
+                        <input class="form-control font-semibold text-sm" placeholder="" asp-for="@Model.applicantProfile.PhoneReference" />
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-lg-6">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.CompanyReference">Tên công ty</label>
+                        <input class="form-control font-semibold text-sm" placeholder=""
+                               asp-for="@Model.applicantProfile.CompanyReference" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label font-semibold text-sm" asp-for="@Model.applicantProfile.PositionReference">Chức vụ</label>
+                        <input class="form-control font-semibold text-sm" placeholder="" asp-for="@Model.applicantProfile.PositionReference" />
+                    </div>
+                </div>
+
+                <button class="btn btn-danger" id="iBtnHuy">Hủy</button>
+                <button class="btn btn-success" type="submit">Lưu thông tin</button>
+                @*</form>*@
+            </div>
+        </form>
+    </div>
+</div>

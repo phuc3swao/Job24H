@@ -1,0 +1,191 @@
+﻿@page
+@using viecLam24hBE.Models;
+@model viecLam24hFE.Pages.NguoiTuyenDung.HoSoUngTuyenModel
+@{
+    Layout = "_LayoutManagerTuyenDung";
+    ViewBag.ActiveNav = "HoSoUngTuyen";
+}
+<div class="container">
+    <div class="row">
+        <div class="card" style="border-radius: 1rem;">
+            <h2 class="font-semibold text-lg mb-3 m-4">Hồ sơ ứng tuyển</h2>
+            <div class="bg-grey-light mb-1 mt-3"></div>
+            <div class="card-body p-3">
+                <div class="row mb-4">
+                    <div class="col-lg-1">
+                        <label class="form-label font-semibold text-sm mt-1">Bộ lọc</label>
+                    </div>
+                    <div class="col-lg-11">
+                    <form method="post" id="idFormFilter">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <div class="form-group font-semibold text-sm">
+                                        <select class="form-control font-semibold text-sm" name="slJobNames">
+                                            <option class="font-semibold text-sm" value="" selected>Tất cả tin đăng</option>
+                                            @if (ViewBag.JobNames != null)
+                                            {
+                                                @foreach (var item in ViewBag.JobNames)
+                                                {
+                                                    if (@item.Key.Equals(ViewBag.jobName))
+                                                    {
+                                                        <option class="font-semibold text-sm" selected value="@item.Key">@item.Key</option>
+                                                    } else
+                                                    {
+                                                        <option class="font-semibold text-sm" value="@item.Key">@item.Key</option>
+                                                    }
+                                                    
+
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="form-group font-semibold text-sm">
+                                        <select class="form-control font-semibold text-sm" name="filterDate">
+                                            <option class="font-semibold text-sm" value="" selected>
+                                                Tất cả thời gian nộp
+                                            </option>
+                                            @foreach (var item in ViewBag.TimeSubmit)
+                                            {
+                                                if (@item.Item1.Equals(ViewBag.filterDate))
+                                                {
+                                                    <option class="font-semibold text-sm" selected value="@item.Item1">@item.Item2</option>
+                                                }
+                                                else
+                                                {
+                                      
+                                                    <option class="font-semibold text-sm" value="@item.Item1">@item.Item2</option>
+                                                }
+                                  
+
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </div>   
+                        </form>
+                    </div>
+                </div>
+                <table class="table" id="iTableHsUngTuyen">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="font-semibold text-md">Tên hồ sơ</th>
+                            <th scope="col" class="font-semibold text-md">Vị trí ứng tuyển</th>
+                            <th scope="col" class="font-semibold text-md">Thời gian nộp</th>
+                            <th scope="col" class="font-semibold text-md">Trạng thái hồ sơ</th>
+                            <th scope="col" class="font-semibold text-md">Khác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableJobPostsUngTuyen">
+
+                        @foreach (var item in Model.JobApplications as List<JobApplication>)
+                        {
+                            <tr>
+                                <td class="font-semibold text-sm" scope="row">
+                                    @item.ProfileName
+                                    <input class="cId" type="hidden" value="@item.Id" />
+                                </td>
+                                <td class="font-semibold text-sm">
+                                    @item.JobPost.JobName
+                                </td>
+                                <td class="font-semibold text-sm">
+                                    @item.CreatedAt
+                                </td>
+                                <td class="font-semibold text-sm">
+                                    @if (item.Status == true)
+                                    {
+                                        <p class="text-success">Đã phê duyệt</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-danger">Chưa phê duyệt</p>
+                                    }
+                                    <input class="cStatus" type="hidden" value="@item.Status" />
+                                </td>
+                                <td class="font-semibold text-sm">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-success dropdown-toggle"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item font-semibold text-sm"
+                                                   href="/NguoiTuyenDung/XemChiTietHoSo?id=@item.Id">
+                                                    Xem chi tiết hồ
+                                                    sơ
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a class="font-semibold text-sm dropdown-item cEditStatusHsUngTuyen"
+                                                   href="#" data-bs-toggle="modal"
+                                                   data-bs-target="#editStatusHoSoUngTuyen">Thay đổi trạng thái</a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li>
+                                                <a class="font-semibold text-sm dropdown-item text-danger cDeleteHsUngTuyen"
+                                                   href="#" data-bs-toggle="modal"
+                                                   data-bs-target="#modalDeleteHsUngTuyen">
+                                                    Xóa
+                                                    hồ sơ
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete JobPost -->
+<div class="modal fade" id="modalDeleteHsUngTuyen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-semibold text-sm" id="exampleModalLabel">Xóa hồ sơ này này?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <p class="font-semibold text-sm mt-2">Bạn có chắc chắn muốn xoá hồ sơ này này không?</p>
+                <input type="hidden" id="iIdDeleteHsUngTuyen" name="hIdDeleteJobPost">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger font-semibold text-sm" data-bs-dismiss="modal">Hủy Bỏ</button>
+                <button type="button" class="btn btn-primary font-semibold text-sm" id="iDeleteHsUngTuyen">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Status -->
+<div class="modal fade" id="editStatusHoSoUngTuyen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-semibold text-sm" id="exampleModalLabel">Thay đổi trạng của hồ sơ ứng tuyển này?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="font-semibold text-sm mt-2" id="iEditStatusContent"></p>
+                <input type="hidden" id="iIdStatusHsUngTuyen">
+                <input type="hidden" id="iStatusHsUngTuyen">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger font-semibold text-sm" data-bs-dismiss="modal">Hủy Bỏ</button>
+                <button type="button" class="btn btn-primary font-semibold text-sm" id="iChangeStatusHsUngTuyen">Thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>

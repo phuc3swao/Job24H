@@ -1,0 +1,100 @@
+﻿@page
+@model viecLam24hFE.Pages.NguoiTimViec.NopHoSoModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Nộp hồ sơ";
+    Layout = "_LayoutUngTuyenHomePage";
+}
+<!-- start banner Area -->
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    Thông tin hồ sơ
+                </h1>
+                <p class="text-white"><a href="index.html">Trang chủ </a>  <span class="lnr lnr-arrow-right"></span>  <a href="contact.html"> Hồ sơ</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+<!-- Start contact-page Area -->
+<section class="contact-page-area section-gap">
+    <div class="container">
+        <div class="section-top-border">
+            <h3 class="mb-30">O1: Chọn hồ sơ danh sách có sẵn</h3>
+            <div class="progress-table-wrap">
+                @if (Model.Profiles == null || Model.Profiles.Count == 0)
+                {
+                    <p>Bạn chưa có hồ sơ nào</p>
+                    <a asp-page="/NguoiTimViec/TaoHoSo" target="_blank">Tạo Hồ sơ ngay</a>
+
+                }
+                else
+                {
+                    <div class="progress-table" style="color: rgb(53, 27, 8);">
+                        <div class="table-head">
+                            <div class="serial">#</div>
+                            <div class="country">Tên</div>
+                            <div class="visit"></div>
+                            <div class="percentage">Chọn hồ sơ</div>
+                        </div>
+                        @foreach (var hoso in Model.Profiles)
+                        {
+                            var count = 1;
+                            <div class="table-row" style="background-color: rgb(174, 215, 229);">
+                                <div class="serial">01</div>
+                                <div class="country">Hồ sơ @count : @hoso.JobName</div>
+                                <div class="visit">
+
+                                    <a asp-page="/NguoiTimViec/CapNhatHoSo" asp-route-id="@hoso.Id" target="_blank">Xem chi tiết</a>
+                                </div>
+                                <div>
+                                    <form method="post" asp-page-handler="ApplyJob" asp-route-id="@hoso.Id">
+                                        <input type="hidden" name="hJobPostId" value="@Model.jobPostId" />
+                                        <button type="submit" class="genric-btn info radius">Chọn</button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+        <form method="post" enctype="multipart/form-data" id="uploadForm">
+            <h3 class="mb-30">O2: Tải nhanh CV của bạn</h3>
+            <div class="row">
+                @*<div class="map-wrap" style="width:100%; height: 445px;" id="map"></div>*@
+                <div class="col-lg-4 d-flex flex-column">
+                    <div class="contact-btns">
+                        <input type="file" asp-for="@Model.PdfFile" />
+                        <button type="submit" hidden="hidden">Tải CV lên</button>
+                        <a>Tải CV lên</a>
+                    </div>
+                    <a class="contact-btns" href="/NguoiTimViec/QuanLyTaiKhoan">Chỉnh sửa thông tin cá nhân</a>
+                    <a class="contact-btns" href="/NguoiTimViec/ChiTietCongViec?id=@Model.jobPostId">Quay lại</a>
+                </div>
+                <div class="col-lg-8">
+                    <div class="form-area" class="contact-form text-right">
+                        <div class="row">
+                            <div class="col-lg-12 form-group">
+                                <input asp-for="@Model.user.UserName" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text">
+
+                                <input asp-for="@Model.user.Email" readonly="readonly" placeholder="Enter email address" pattern="[A-Za-z0-9._%+-]+[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" class="common-input mb-20 form-control" required="" type="email">
+
+                                <input placeholder="Enter your subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your subject'" class="common-input mb-20 form-control" required="" type="text">
+                                <textarea class="common-textarea mt-10 form-control" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
+                                <button class="primary-btn mt-20 text-white" style="float: right;" type="submit" disabled>Send Message</button>
+                                <div class="mt-20 alert-msg" style="text-align: left;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- End contact-page Area -->

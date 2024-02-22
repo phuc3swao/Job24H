@@ -1,0 +1,90 @@
+﻿@page
+@model viecLam24hFE.Pages.NguoiTuyenDung.XemChiTietHoSoModel
+@{
+    Layout = "_LayoutManagerTuyenDung";
+}
+
+
+<div class="card" style="border-radius: 1rem;">
+    <div class="card-body p-4">
+        <div class="d-flex">
+            <a class="btn btn-danger font-semibold text-sm m-2" href="/NguoiTuyenDung/HoSoUngTuyen"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Quay lại</a>
+            &nbsp;&nbsp;
+            <h2 class="font-semibold text-lg mt-2">Chi tiết ứng viên</h2>
+
+        </div>
+
+        <div class="bg-grey-light mb-3 mt-4"></div>
+        <div class="card-body p-3">
+            <div class="bg-cyan-dark-blue mb-2" style="width: 100px; height: 10px;"></div>
+            <p class="font-semibold text-lg mb-3">Thông tin cá nhân</p>
+            <div class="row mb-4">
+                <div class="col-lg-6">
+                    <table>
+                        <tr>
+                            <th width="210px" height="30px" class="text-grey-50 font-semibold">Email:</th>
+                            <td class="text-sm font-semibold">@Model.ApplicantProfileModel.User.Email</td>
+                        </tr>
+                        <tr>
+                            <th width="210px" height="30px" class="text-grey-50 font-semibold">Số điện thoại:</th>
+                            <td class="text-sm font-semibold">@Model.ApplicantProfileModel.User.Phone</td>
+                        </tr>
+                        <tr>
+                            <th width="210px" height="30px" class="text-grey-50 font-semibold">Địa chỉ:</th>
+                            <td class="text-sm font-semibold">@Model.ApplicantProfileModel.User.Address</td>
+                        </tr>
+                        <tr>
+                            <th width="210px" height="30px" class="text-grey-50 font-semibold">Ngày sinh:</th>
+                            <td class="text-sm font-semibold">@Model.ApplicantProfileModel.User.Dob.Value.ToString("d/M/yyyy")</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+            </div>
+
+            <div class="bg-grey-light mb-3"></div>
+            <div class="row mb-4">
+                <div class="card-body">
+                    <div class="bg-cyan-dark-red mb-2" style="width: 160px; height: 10px;"></div>
+                    <h2 class="font-semibold text-lg mb-3 card-title">Thông tin chung</h2>
+                    <div class="col-lg-12">
+                        <table>
+                            <tr>
+                                <th width="210px" height="30px" class="text-grey-50 font-semibold">Vị trí mong muốn:</th>
+                                <td class="text-sm font-semibold">@Model.ApplicantProfileModel.JobName</td>
+                            </tr>
+                            <tr>
+                                <th height="30px" class="text-grey-50 font-semibold">Mức lương mong muốn:</t>
+                                <td class="text-sm font-semibold">@Model.ApplicantProfileModel.Salary $</td>
+                            </tr>
+                            <tr>
+                                <th height="30px" class="text-grey-50 font-semibold">Trình độ học vấn:</t>
+                                <td class="text-sm font-semibold">@Model.ApplicantProfileModel.Degree</td>
+                            </tr>
+                            <tr>
+                                <th height="30px" class="text-grey-50 font-semibold">Số năm kinh nghiệm:</t>
+                                <td class="text-sm font-semibold">@Model.ApplicantProfileModel.Experence</td>
+                            </tr>
+                            <tr>
+                                <th height="30px" class="text-grey-50 font-semibold">Hình thức làm việc:</t>
+                                <td class="text-sm font-semibold">@Model.ApplicantProfileModel.WorkingForm</td>
+                            </tr>
+                            <tr>
+                                <th height="30px" class="text-grey-50 font-semibold">Địa điểm làm việc</th>
+                                <td class="text-sm font-semibold">@Model.ApplicantProfileModel.WorkLocation</td>
+                            </tr>
+                            <tr>
+                                <th height="30px" class="text-grey-50 font-semibold">Kỹ năng cứng & mềm</th>
+                                <td class="text-sm font-semibold">Chưa cập nhật</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

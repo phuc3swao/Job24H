@@ -1,0 +1,56 @@
+﻿@page
+@model viecLam24hFE.Pages.NguoiTimViec.DangNhapModel
+@{
+    Layout = "_LayoutLoginUngTuyen";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - viecLam24hFE</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/viecLam24hFE.styles.css" asp-append-version="true" />
+</head>
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+
+                    <form method="post">
+                        <div class="text-center mb-5">
+                            <p class="font-semibold text-lg">Người Ứng Tuyển Đăng nhập</p>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="mb-4">
+                            <input class="form-control font-semibold text-sm" placeholder="Địa chỉ email" asp-for="@Model.TimViecLogin.Email" />
+                            <span asp-validation-for="@Model.TimViecLogin.Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="mb-4">
+                            <input class="form-control font-semibold text-sm" placeholder="Mật khẩu" asp-for="@Model.TimViecLogin.Password" />
+                            <span asp-validation-for="@Model.TimViecLogin.Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary col-auto mb-4 font-semibold text-sm " style="width: 100%">Đăng nhập</button>
+
+                        <!-- 2 column grid layout -->
+         
+
+                        <!-- Register buttons -->
+                        @* <div class="text-center b-3">
+                            <p class="text-sm font-semibold">Bạn là người ứng tuyển mới?, <a href="#!" class="text-sm font-semibold">Đăng ký tài khoản</a></p>
+                        </div> *@
+                    </form>
+                    <span class="text-danger text-sm font-semibold">@ViewBag.responseMessage</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
